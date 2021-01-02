@@ -314,7 +314,7 @@ function Device(atemIpAddress){
 					get length() { return 8; },
 					serialize: function() {
 						const connectCmd = '0100000000000000';
-						return (new Buffer(connectCmd, 'hex'));
+						return (Buffer.alloc(connectCmd, 'hex'));
 					}
 				}];
 			}
@@ -632,7 +632,7 @@ function Device(atemIpAddress){
 
 		//todo check if source exists
 		//todo laten werken voor multiview
-		const data = new Buffer(32);
+		const data = Buffer.alloc(32);
 
 		const longNameFlag = options.hasOwnProperty('name');
 		const shortNameFlag  = options.hasOwnProperty('abbreviation');
@@ -669,7 +669,7 @@ function Device(atemIpAddress){
 	 * @param {SourceID} sourceID the ID of the source
 	 */
 	this.setProgram = function(sourceID, mE) {
-		var data = new Buffer(4);
+		var data = Buffer.alloc(4);
 		data.writeUInt32BE(sourceID, 0);
 
 		const cmd = new Command('CPgI', data);
@@ -682,7 +682,7 @@ function Device(atemIpAddress){
 	 * @param {SourceID} sourceID the ID of the source
 	 */
 	this.setPreview = function(source) {
-		var data = new Buffer(4);
+		var data = Buffer.alloc(4);
 		data.writeUInt32BE(source, 0);
 
 		const cmd = new Command('CPvI', data);
@@ -695,7 +695,7 @@ function Device(atemIpAddress){
 	 * @param {SourceID} source
 	 */
 	this.setAux = function(aux, source){
-		var data = new Buffer(4);
+		var data = Buffer.alloc(4);
 		data[0] = 1;
 		data[1] = aux - 8001;
 		data.writeUInt16BE(source, 2);
@@ -944,7 +944,7 @@ function Packet() {
 			atem.emit('error', err);
 		},
 		serialize: function() {
-			var header = new Buffer(12);
+			var header = Buffer.alloc(12);
 
 			// Package length and flags
 			header.writeUInt16BE(this.packetLength, 0);
@@ -1032,7 +1032,7 @@ var Command = Device.Command = function(name, data) {
 	if (data)
 		this.data = data;
 	else
-		this.data = new Buffer(0);
+		this.data = Buffer.alloc(0);
 
 	/**
 	 * The number of bytes this command will take when serialized.
@@ -1056,7 +1056,7 @@ var Command = Device.Command = function(name, data) {
  */
 Command.prototype.serialize = function() {
 	const l = this.length;
-	const header = new Buffer(8);
+	const header = Buffer.alloc(8);
 
 	header.writeUInt16BE(l, 0);
 	header.write(this.name, 4);
