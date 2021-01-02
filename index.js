@@ -566,22 +566,53 @@ function Device(atemIpAddress){
 	/**
 	 * Performs a cut transition between preview and program
 	 * @function Device#cut
+	 * @param {mE} mE
 	 */
-	this.cut = function() {
-		const data = new Buffer(4);
-		data.fill(0);
+	this.cut = function(mE = 0) {
+		const data = Buffer.alloc(4);
+		data.writeUInt8(mE, 0);
 		self.sendCommand(new Command('DCut', data));
 	};
 
 	/**
 	 * Performs an auto transition between preview and program
 	 * @function Device#auto
+	 * @param {mE} mE
 	 */
-	this.auto = function() {
-		const data = new Buffer(4);
-		data.fill(0);
+	this.auto = function(mE = 0) {
+		const data = Buffer.alloc(4);
+		data.writeUInt8(mE, 0);
 		self.sendCommand(new Command('DAut', data));
 	};
+
+	/**
+	 * Set transition between preview and program by mE
+	 * @function Device#auto
+	 * @param {position} Position
+	 * @param {mE} mE
+	 */
+	this.transitionPositionAuto = function(position, mE = 0) {
+		const data = Buffer.alloc(4);
+		data.writeUInt8(mE, 0);
+        data.writeUInt16BE(position, 2);
+		self.sendCommand(new Command('CTPs', data));
+	};
+	
+	/**
+	 * Set transition between preview and program with style by mE
+	 * @param {mask} mask 
+	 * @param {style} style 
+	 * @param {nextTransition} nextTransition 
+	 * @param {mE} mE 
+	 */
+	this.transition = function(mask,style, nextTransition, mE=0){
+		const data = Buffer.alloc(4);
+        data.writeUInt8(mask, 0);
+        data.writeUInt8(mE, 1);
+        data.writeUInt8(style, 2);
+        data.writeUInt8(nextTransition, 3);
+		self.sendCommand(new Command('CTTp', data));
+	}
 
 	/**
 	 * Changes the specified options of the Source Configuration. Note that you don't need to specify all
@@ -637,7 +668,7 @@ function Device(atemIpAddress){
 	 * @function Device#setProgram
 	 * @param {SourceID} sourceID the ID of the source
 	 */
-	this.setProgram = function(sourceID) {
+	this.setProgram = function(sourceID, mE) {
 		var data = new Buffer(4);
 		data.writeUInt32BE(sourceID, 0);
 
