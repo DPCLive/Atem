@@ -10,24 +10,24 @@ Implementation of BlackMagicDesign's ATEM communication protocol (version 8.5.3)
 This library is more than 3 years old and although I am still maintaining it, I started a new version of the implementation written from the ground up in Swift. It is developed under [Swift-Atem](https://github.com/Dev1an/Swift-Atem) and implements the protocol in a more flexible manner. The same code can be used to implement both directions of the protocol. This means that you can not only use it to control atem switchers but also to connect to your control panels without the need for a switcher. Opening a whole new world of applications for the Atem control panels.
 
 ## Usage
-### Connect to an atem
-To connect to an atem, simply create a new `Atem` instance and pass an IP address as first parameter of the constructor:
+### Connect to an dpclive-atem
+To connect to an dpclive-atem, simply create a new `dpclive-atem` instance and pass an IP address as first parameter of the constructor:
 ```js
-var Atem = require('atem') // Load the atem module
-var myAtemDevice = new Atem("10.1.0.9") // Create a new Atem instace with an IP address
+var Atem = require('dpclive-atem') // Load the dpclive-atem module
+var myAtemDevice = new Atem("10.1.0.9") // Create a dpclive-atem Atem instace with an IP address
 ```
-You can also create a new `Atem` instance and specify the IP address later on. Notice that if you do this, you need to call the `connect` method yourself:
+You can also create a new `dpclive-atem` instance and specify the IP address later on. Notice that if you do this, you need to call the `connect` method yourself:
 ```js
-var Atem = require('atem') // Load the atem module
-var myAtemDevice = new Atem() // Create a new Atem instace without an IP address
+var Atem = require('dpclive-atem') // Load the dpclive-atem module
+var myAtemDevice = new Atem() // Create a new Atdpclive-atemem instace without an IP address
 myAtemDevice.ip = "10.1.0.9" // specify the ip address
 myAtemDevice.connect() // manually connect to the atem
 ```
 ### Receive notifications from your atem
 To receive notifications about the connection state:
 ```js
-var Atem = require('atem') // Load the atem module
-var myAtemDevice = new Atem() // Create a new Atem instace without an IP address
+var Atem = require('dpclive-atem') // Load the dpclive-atem module
+var myAtemDevice = new Atem() // Create a new dpclive-atem instance without an IP address
 myAtemDevice.on('connectionStateChange', function(state) {
   console.log('state', state);
 });
