@@ -827,7 +827,9 @@ function Device(atemIpAddress){
 		atem.emit('productNameChange', productName);
 	});
 
-
+	this.on('AMIP', function(data) {
+		atem.emit('productNameChange', data);
+	});
 
 
 	/**

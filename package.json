@@ -1,9 +1,8 @@
 {
-  "name": "atem",
-  "version": "0.1.7",
+  "name": "dpclive-atem",
+  "version": "1.1.8",
   "description": "Implementation of BlackMagicDesign's ATEM communication protocol.",
   "main": "index.js",
-  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo 'No test specified'"
